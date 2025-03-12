@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V E L O C I T Y</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="asset/favicon.png" type="image/x-icon">
+
+    <!-- daisyUI + TailwindCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Transition for smooth effect */
+        .navbar {
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+        
+        /* Background change when scrolled */
+        .scrolled {
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent black */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+        }
+
+        /* Fix for mobile menu background issue */
+        #mobile-menu {
+            background-color: rgba(15, 15, 15, 0.95); /* Solid dark background */
+            z-index: 50; /* Ensures it's above navbar */
+        }
+
+
+        /*  */
+
+        .description {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    
+    .button-container {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s;
+    }
+    
+    .fade-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @keyframes breathingGlow {
+    0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+    50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+    100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+}
+
+.title {
+    animation: breathingGlow 5s ease-in-out infinite;
+}
+    
+    </style>
+</head>
+
+<body>
+  
+    <header class="h-[90vh] md:h-[100vh] text-white flex flex-col items-center md:px-16">
+
+        <nav id="navbar" class="navbar fixed top-0 left-0 w-full h-[10vh] flex items-center justify-between px-6 md:px-16 mb-4">
+            <!-- Logo -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 md:static md:translate-x-0">
+                <div class="title heading-text text-xl whitespace-nowrap">V E L O C I T Y</div>
+            </div>
+        
+            <!-- Hamburger Icon -->
+            <div class="md:hidden ml-auto">
+                <i id="hamburger" class="fa-solid fa-bars text-xl cursor-pointer"></i>
+            </div>
+        
+            <!-- Navigation Links -->
+            <div id="nav-li" class="hidden md:flex list-none space-x-12">
+                <a href=""><li>Courses</li></a>
+                <a href=""><li>Pricing</li></a>
+                <a href=""><li>Shop</li></a>
+                <a href=""><li>Member Area</li></a>
+            </div>
+        
+            <!-- Mobile Drawer Menu -->
+            <div id="mobile-menu" class="fixed top-0 right-0 h-full w-[70vw] max-w-sm text-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col space-y-6 p-6">
+                <button id="close-btn" class="text-2xl self-end">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <a href=""><li>Courses</li></a>
+                <a href=""><li>Pricing</li></a>
+                <a href=""><li>Shop</li></a>
+                <a href=""><li>Member Area</li></a>
+            </div>
+        </nav>
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const navbar = document.getElementById("navbar");
+                const hamburger = document.getElementById("hamburger");
+                const mobileMenu = document.getElementById("mobile-menu");
+                const closeBtn = document.getElementById("close-btn");
+    
+                // Scroll effect: Change navbar background
+                window.addEventListener("scroll", function () {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add("scrolled");
+                    } else {
+                        navbar.classList.remove("scrolled");
+                    }
+                });
+    
+                // Open mobile drawer
+                hamburger.addEventListener("click", () => {
+                    mobileMenu.classList.remove("translate-x-full");
+                    navbar.classList.remove("scrolled"); // Remove blur effect when opening menu
+                });
+    
+                // Close mobile drawer
+                closeBtn.addEventListener("click", () => {
+                    mobileMenu.classList.add("translate-x-full");
+                    if (window.scrollY > 50) {
+                        navbar.classList.add("scrolled"); // Reapply blur if scrolled
+                    }
+                });
+    
+                // Close if clicked outside
+                document.addEventListener("click", (event) => {
+                    if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                        mobileMenu.classList.add("translate-x-full");
+                    }
+                });
+            });
+        </script>
+
+<!-- breathing .title -->
+
+
+    
+        <!-- Banner Content -->
+        <div class="flex flex-col my-4 overflow-scroll mt-[20vh] sm:mt-[25vh] md:mt-[15vh]">
+            <div id="mma-heading" class="text-center text-4xl sm:text-6xl md:w-3/4 md:text-7xl md:text-left lg:text-8xl font-[850] my-4">
+                MARTIAL ARTS <br>
+                FROM IFRAJ <br>
+                WITH LOVE
+            </div>   
+    
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const heading = document.querySelector("#mma-heading");
+                    const text = heading.innerText;
+                    heading.innerHTML = ""; // Clear original text
+    
+                    // Wrap each letter in a span
+                    for (let i = 0; i < text.length; i++) {
+                        let span = document.createElement("span");
+                        span.innerText = text[i] === " " ? "\u00A0" : text[i]; // Preserve spaces
+                        span.classList.add("letter");
+                        span.style.transitionDelay = `${i * 80}ms`; // Delay for each letter
+                        heading.appendChild(span);
+                    }
+    
+                    // Animate each letter with a blinds effect
+                    setTimeout(() => {
+                        document.querySelectorAll(".letter").forEach(letter => {
+                            letter.style.transform = "scaleY(1)";
+                            letter.style.opacity = "1";
+                        });
+                    }, 500);
+                });
+            </script>
+    
+            <style>
+                .letter {
+                   
+                    transform: scaleY(0);
+                    opacity: 0;
+                    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+                }
+            </style>
+    
+    <div class="px-3 md:px-0 w-full mt-8 md:mt-0 text-center text-lg sm:text-xl/8 md:w-1/2 text-gray-200 md:text-left font-thin md:text-xl/8 lg:text-2xl my-4 description">
+      Join us for a training experience in the vibrant heart of <span class="font-[600]">Dhaka</span>. You’ll be part of a welcoming community with skilled coaches dedicated to helping you reach your full potential. Together, we’ll make sure you achieve your best.
+    </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    setTimeout(() => {
+                        document.querySelector(".description").classList.add("fade-in");
+                    }, 1000); // Delay for the description
+                    
+                    setTimeout(() => {
+                        document.querySelector(".button-container").classList.add("fade-in");
+                    }, 1800); // Delay for the button
+                });
+            </script>
+    
+    <div class="my-4 text-center md:text-left md:mt-12 lg:mt-0 button-container">
+        <button class="mt-16 sm:mt-24 md:mt-4 bg-white text-black p-4 hover:bg-gray-800 hover:text-white transition-all ease-linear duration-100">
+            DISCOVER ALL CLASSES
+        </button>
+    </div>
+    
+        </div>
+        
+    </header>
+
+  
+
+   <main>
+
+    <!-- Our Courses -->
+    <section>
+
+      <div class="w-full px-16 flex flex-col justify-center my-16">
+        <div class="uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[750] text-center">Our Courses</div>
+        <div class=" text-gray-600 text-sm/5 md:text-lg/8 w-full md:w-2/3 mx-auto my-8 text-center">In our spacious 1500 m² training facility, we offer a wide variety of martial arts, fitness, and recovery programs. Whether you’re interested in MMA, Muay Thai, Brazilian Jiu-Jitsu, boxing, or wrestling, you’ll find the perfect place to train and grow. From beginners looking to get started to experienced athletes refining their skills, we have classes suited for all levels. To support your overall well-being, we also provide yoga sessions and professional massage services for relaxation and recovery.</div>
+      </div>
+
+      <!-- cards container -->
+
+     <div class="flex justify-center items-center z-10">
+
+        <!-- cards -->
+        <div class="grid justify-center items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto">
+
+            <div id="card" class="w-64 h-96 text-white text-3xl font-bold flex justify-center items-center flex-col  ">
+                KICKBOXING
+        
+                <div id="card-btn" class="text-sm uppercase bg-gray-800 transition-all ease-linear duration-100 w-fit py-2 px-4  opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:transition-all group-hover:ease-linear group-hover:duration-200 absolute top-2/3 cursor-pointer">
+                    learn more
+                </div>
+            </div>
+
+            
+            <div   id="card2"  class="w-64 h-96 text-white text-3xl font-bold flex justify-center items-center flex-col  ">
+                BOXING
+        
+                <div id="card-btn" class="text-sm uppercase bg-gray-800 transition-all ease-linear duration-100 w-fit py-2 px-4  opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:transition-all group-hover:ease-linear group-hover:duration-200 absolute top-2/3 cursor-pointer">
+                    learn more
+                </div>
+            </div>
+            
+
+            
+            <div id="card3" class="w-64 h-96 text-white text-3xl font-bold flex justify-center items-center flex-col  ">
+                JUDO
+        
+                <div id="card-btn" class="text-sm uppercase bg-gray-800 transition-all ease-linear duration-100 w-fit py-2 px-4  opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:transition-all group-hover:ease-linear group-hover:duration-200 absolute top-2/3 cursor-pointer">
+                    learn more
+                </div>
+            </div>
+
+
+            <div id="card4" class="w-64 h-96 text-white text-3xl font-bold flex justify-center items-center flex-col  ">
+                GYM
+        
+                <div id="card-btn" class="text-sm uppercase bg-gray-800 transition-all ease-linear duration-100 w-fit py-2 px-4  opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:transition-all group-hover:ease-linear group-hover:duration-200 absolute top-2/3 cursor-pointer">
+                    learn more
+                </div>
+            </div>
+
+            
+            <div id="card5" class="w-64 h-96 text-white text-3xl font-bold flex justify-center items-center flex-col  ">
+                FITNESS
+        
+                <div id="card-btn" class="text-sm uppercase bg-gray-800 transition-all ease-linear duration-100 w-fit py-2 px-4  opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:transition-all group-hover:ease-linear group-hover:duration-200 absolute top-2/3 cursor-pointer">
+                    learn more
+                </div>
+            </div>
+            
+
+            
+            <div id="card6" class="w-64 h-96 text-white text-3xl font-bold flex justify-center items-center flex-col  ">
+                DIET
+        
+                <div id="card-btn" class="text-sm uppercase bg-gray-800 transition-all ease-linear duration-100 w-fit py-2 px-4  opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:transition-all group-hover:ease-linear group-hover:duration-200 absolute top-2/3 cursor-pointer">
+                    learn more
+                </div>
+            </div>
+            
+           
+            </div>
+            
+        </div>
+
+     </div>
+    </section>
+
+    <section class="bg-[#1c1c1c] h-[110vh] mt-32 overflow-hidden flex flex-col md:flex-row md:items-center px-16  ">
+
+<div class="mt-[15vh]">
+    
+    
+    <div class="uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[750] text-center  text-white md:text-left ">TRIAL TRAINING</div>
+
+    <div class="text-gray-400 w-full text-sm/6 md:text-lg/8  my-8 text-center md:text-left md:w-4/5 flex items-center">
+        Want to try a free training session with us? No problem! Just visit us during our regular opening hours and speak with our team at the front desk.
+    
+    We’ll guide you through the process, help you schedule a suitable date, and give you a tour of the gym.
+    
+    Please note that due to high demand, same-day appointments are rarely available. For more details about your trial session, check out our Help Center.
+    </div>
+
+
+</div>
+
+
+<div class="grayscale relative top-8  ">
+
+    <img src="asset/lorremreal.png" alt="">
+</div>
+
+
+
+
+    </section>
+
+
+   <section id="city" >
+
+   </section>
+
+   <section id="aftercity" >
+
+    <div class="w-full px-16 flex flex-col justify-center my-16">
+        <div class="uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[750] text-center">ABOUT US</div>
+        <div class=" text-gray-600 text-sm/5 md:text-lg/8 w-full md:w-2/3 mx-auto my-8 text-center">
+
+            <div class="my-4">
+
+                We established our gym in 2015, and since then, we have been proudly serving the Dhaka community. Initially founded as a dedicated MMA training facility, we have grown into a dynamic hub offering a range of martial arts, with a special focus on MMA, BJJ, and Muay Thai.
+
+            </div>
+          
+
+            <div class="my-4">
+                Operating seven days a week, our team and passionate community provide over 140 classes, ensuring there is always something for everyone. Our spacious training areas, including both fitness and mat zones, offer the perfect environment for independent strength and technique training, as well as sparring sessions with fellow enthusiasts.
+            </div>
+        </div>
+      </div>
+
+      
+      <div class="flex justify-center">
+        <button class="border border-black text-black bg-transparent py-2 px-12 text-center hover:bg-black hover:text-white hover:border-white transition-all duration-300 ease-in-out">
+            Learn More
+        </button>
+      </div>
+  
+
+   </section>
+
+
+   <section id="interior">
+
+
+   </section>
+
+   <section class=" bg-[#1c1c1c] h-[110vh] mt-32 overflow-hidden flex flex-col md:flex-row md:items-center px-16">
+
+<div>
+
+    <div>
+
+        <div class="uppercase text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[750] text-center  text-white md:text-left ">FAQ AND CONTACT</div>
+
+        <div class=" text-gray-600 text-sm/5 md:text-lg/8 w-full md:w-2/3 mx-auto md:mx-0 my-8 text-center md:text-left">
+
+            Check out our Helpcenter, explore our FAQs, or reach out to us via chat for assistance.
+
+If you can’t find what you’re looking for in our Helpcenter, feel free to send us an email.
+
+For business inquiries, workshops, or collaboration opportunities, simply click the “Collaborations” button below.
+
+We’re here to assist you!
+
+        </div>
+    </div>
+
+    <div class="space-x-4 space-y-5 md:space-y-0 mx-auto">
+        <button class="border border-white text-white bg-transparent py-2 px-6 text-center hover:bg-[#FF5733] hover:text-black hover:border-[#FF5733] transition-all duration-300 ease-in-out">
+            HELP CENTER
+        </button>
+        
+        <button class="border border-white text-white bg-transparent py-2 px-6 text-center hover:bg-[#FF5733] hover:text-black hover:border-[#FF5733] transition-all duration-300 ease-in-out">
+            E-MAIL US
+        </button>
+        
+        <button class="border border-white text-white bg-transparent py-2 px-6 text-center hover:bg-[#FF5733] hover:text-black hover:border-[#FF5733] transition-all duration-300 ease-in-out">
+            COLLABORATIONS
+        </button>
+    </div>
+</div>
+
+<div style="width: 100%; height: 400px;" class="my-4 md:my-0">
+    <iframe 
+        width="100%" 
+        height="100%" 
+        frameborder="0" 
+        style="border:0" 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14660.78890132252!2d90.3923906!3d23.7764978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7101f8a6cf7%3A0x0!2zMjMuNzc2XzIzLjg3MjI!5e0!3m2!1sen!2sbd!4v1618215208384!5m2!1sen!2sbd"
+        allowfullscreen>
+    </iframe>
+</div>
+
+   </section>
+
+
+   </main>
+
+
+   <footer class="bg-[#1c1c1c] text-white py-8">
+    <div class="container mx-auto text-center">
+        <div class="mb-4">
+            <h3 class="text-2xl font-semibold">V E L O C I T Y</h3>
+            <p class="text-lg mt-2">Join us for a training experience like no other.</p>
+        </div>
+
+        <div class="flex justify-center space-x-6 mb-6">
+            <a href="#" class="hover:text-gray-400"><i class="fa-brands fa-facebook text-2xl"></i></a>
+            <a href="#" class="hover:text-gray-400"><i class="fa-brands fa-instagram text-2xl"></i></a>
+            <a href="#" class="hover:text-gray-400"><i class="fa-brands fa-twitter text-2xl"></i></a>
+            <a href="#" class="hover:text-gray-400"><i class="fa-brands fa-youtube text-2xl"></i></a>
+        </div>
+
+        <div class="text-sm text-gray-400">
+            <p>&copy; 2025 V E L O C I T Y. All rights reserved.</p>
+            <p>Designed and Developed by <a href="#" class="text-gray-200 hover:text-gray-400">Ifraj Ahmed</a></p>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+
+</html>
